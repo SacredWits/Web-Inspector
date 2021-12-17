@@ -1,11 +1,11 @@
-cfg.MUI, cfg.Dark
+cfg.MUI, cfg.Light
 
 
 function OnStart()
 {
     app.EnableBackKey( false );
-    color = MUI.colors.teal
-    app.InitializeUIKit(color.teal)
+    color = MUI.colors.blue
+    app.InitializeUIKit(color.blue)
     eruda = app.ReadFile( 'eruda.js' );
     dr = {}
     /*
@@ -81,7 +81,7 @@ function Tab(){
     
     self.urlModal = MUI.CreateModal( "WEBSITE URL", "", "GO", "CANCEL", false );
     self.urlModalLay = self.urlModal.GetLayout();
-    self.urlModalLay.SetBackColor( "#303030" );
+    self.urlModalLay.SetBackColor( "#eeeeee" );
     self.urlModal.SetOnTouch(function(isOk){
       if(isOk){
       	var url = self.urlInput.GetText();
@@ -146,7 +146,7 @@ function Tab(){
     self.userAgentLay = app.CreateLayout( "Linear", "Horizontal,FillX,Left" );
     self.userAgentLay.SetPadding( 0.02, 0.0 ,0.0 ,0.0 );
     self.urlModalLay.AddChild( self.userAgentLay );
-    self.userAgentEdit = MUI.CreateButtonFlat( "Change [fa-pencil]" );
+    self.userAgentEdit = MUI.CreateButtonRaised( "Change [fa-pencil]" );
     self.userAgentEdit.SetTextSize( "10" );
     self.userAgentEdit.SetOnTouch( function(){
         var newUserAgent = prompt( "Paste User Agent" );
