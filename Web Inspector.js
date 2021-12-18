@@ -4,53 +4,39 @@ cfg.MUI, cfg.Light
 function OnStart()
 {
     app.EnableBackKey( false );
-    color = MUI.colors.blue
-    app.InitializeUIKit(color.blue)
-    eruda = app.ReadFile( 'eruda.js' );
+    color = MUI.colors.teal
+    app.InitializeUIKit(color.teal)
+    eruda = app.ReadFile( 'eruda/eruda.js' );
     dr = {}
-    /*
     //Drawer
-    dr.lay = app.CreateLayout( "Linear", "Vertical,FillXY" );
-    	dr.lay.SetBackColor( "#303030");
+    dr.lay = app.CreateLayout( "Linear", "VCenter,FillXY" );
+    	dr.lay.SetBackColor( "#ffffff");
     	app.AddDrawer( dr.lay, "left", 1 );
-    	//Top Bar
-    	dr.bar = MUI.CreateAppBar("Scripts", "", "apps,code,info");
-    		dr.h = 1-dr.bar.GetHeight();
-    	//Scroller
-    	dr.scr = app.CreateScroller( 1, dr.h, "NoScrollbar" )
-    		dr.scr.lay = app.CreateLayout( "Absolute", "FillXY" )
-    		dr.scr.AddChild( dr.scr.lay );
-    		//Script .Library
-    			dr.lib = {}
-    			dr.lib.lay = app.CreateLayout( "Linear", "Vertical,FillXY" )
-    			dr.lib.list = MUI.CreateListModern(
-    				[
-    					{title: 'wikipedia', body: 'get all languages list from wikipedia'},
-    					{title: 'youtube', body: 'get all languages list from wikipedia'},
-    					{title: 'libgen', body: 'get all languages list from wikipedia'}
-    				]
-    			);
-    			dr.lib.lay.AddChild( dr.lib.list );
-    		dr.scr.lay.AddChild(dr.lib.lay);
-    dr.lay.AddChild( dr.scr );
-    dr.lay.AddChild( dr.bar );
+    	    dr.social = [
+    	        "GitHub:SacredWits/Web-Inspector:[fa-github]",
+    	        "Telegram:t.me/webinspector:[fa-telegram]",
+    	        "Whatsapp:GTyn7o3pWAC12WIT79OAY4:[fa-whatsapp]",
+    	        "Website:webinspector.sacredwits.com:[fa-globe]"
+            ];
+            dr.list =  MUI.CreateList(dr.social, 1, null );
+            dr.list.SetOnTouch(function(title, body){
+                switch( title ){
+                    case "GitHub":
+                        app.OpenUrl( "https://github.com/SacredWits/Web-Inspector" );
+                    break;
+                    case "Telegram":
+                        app.OpenUrl( "https://t.me/webinspector" );
+                    break;
+                    case "Whatsapp":
+                        app.OpenUrl( "https://chat.whatsapp.com/GTyn7o3pWAC12WIT79OAY4" );
+                    break;
+                    case "Website":
+                        app.OpenUrl( "https://webinspector.sacredwits.com" );
+                    break;
+                }
+            });
+            dr.lay.AddChild( dr.list );
     
-    //Events
-    dr.bar.SetOnControlTouch(function(key){
-    	switch( key ){
-    		case "apps":
-    			dr.bar.SetTitleText( "Scripts" );
-    		break;
-    		case "code":
-    			dr.bar.SetTitleText( "IDE" );
-    		break;
-    		case "info":
-    			dr.bar.SetTitleText("Terminal");
-    		break;
-    		
-    	}
-    });
-    */
     tabs = [];
     currentTab = -1;
     NewTab();
@@ -61,8 +47,10 @@ function Tab(){
 	self.lay = MUI.CreateLayout("Linear", "Vertical,FillXY")
     
     //BottomBar
-	self.barBottom = MUI.CreateAppBar("Tab "+(tabs.length+1), "link", "close,settings,arrow_back,arrow_forward")
+	self.barBottom = MUI.CreateAppBar("Tab "+(tabs.length+1), "menu", "link,close,settings,arrow_back,arrow_forward")
 	self.barBottom.SetOnMenuTouch( function(){
+	    app.OpenDrawer( "Left" );
+	    return;
         self.urlInput.SetText( self.web.GetUrl() );
         self.urlModal.Show();
     } );
@@ -102,13 +90,13 @@ function Tab(){
     self.urlModalProto = app.CreateLayout( "Linear", "Horizontal,FillXY" );
     self.urlModalLay.AddChild( self.urlModalProto );
     
-    self.urlModalHttp = app.CreateButton( "[fa-globe] http://", -1, -1, "FontAwesome" );
+    self.urlModalHttp = MUI.CreateButtonFlat( " [fa-globe] http:// ", -1, -1, "FontAwesome" );
     self.urlModalProto.AddChild(self.urlModalHttp);
     self.urlModalHttp.SetOnTouch( function(){
         self.urlInput.SetText( "http://" );
     } );
     
-    self.urlModalHttps = app.CreateButton( "[fa-lock] https://", -1, -1, "FontAwesome" );
+    self.urlModalHttps = MUI.CreateButtonFlat( " [fa-lock] https:// ", -1, -1, "FontAwesome" );
     self.urlModalProto.AddChild(self.urlModalHttps);
     self.urlModalHttps.SetOnTouch( function(){
         self.urlInput.SetText( "https://" );
@@ -139,13 +127,14 @@ function Tab(){
     self.userAgentText = MUI.CreateTextSecondary( "User Agent", 0.9 , -1, "" );
     self.userAgentText.SetPadding( 0.02, 0.02, 0.0, 0.0 );
     self.urlModalLay.AddChild( self.userAgentText );
-    self.userAgentVal = MUI.CreateTextParagraph( navigator.userAgent, 0.9, -1, "Multiline,Monospace,Left" );
+    self.userAgentVal = MUI.CreateTextSecondary( navigator.userAgent, 0.9, -1, "Multiline,Monospace,Left" );
     self.userAgentVal.SetTextColor( "#999999" );
     self.userAgentVal.SetPadding( 0.02, 0.01 ,0.0 ,0.0 );
     self.urlModalLay.AddChild( self.userAgentVal );
     self.userAgentLay = app.CreateLayout( "Linear", "Horizontal,FillX,Left" );
     self.userAgentLay.SetPadding( 0.02, 0.0 ,0.0 ,0.0 );
     self.urlModalLay.AddChild( self.userAgentLay );
+    self.userAgentLay.SetPadding( .03, .01, .0, .02 );
     self.userAgentEdit = MUI.CreateButtonRaised( "Change [fa-pencil]" );
     self.userAgentEdit.SetTextSize( "10" );
     self.userAgentEdit.SetOnTouch( function(){
