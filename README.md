@@ -9,3 +9,18 @@ Inspect any web application on your android device.
 7. Change viewport size to any custom device manually
 8. Change user agent
 9. and lot more...
+
+##Website
+https://webinspector.sacredwits.com
+
+## Google Play
+https://play.google.com/store/apps/details?id=com.sacredwits.webinspector
+
+## LTS Releases
+https://github.com/SacredWits/Web-Inspector/releases/tag/v3.0.0
+
+## Telegram
+https://t.me/webinspector
+
+## Whatsapp
+https://chat.whatsapp.com/GTyn7o3pWAC12WIT79OAY4
