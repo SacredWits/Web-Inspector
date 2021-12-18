@@ -8,7 +8,7 @@ Inspect any web application on your android device.
 6. View Network requests
 7. Change viewport size to any custom device manually
 8. Change user agent
-9. and lot more...
+9. and much more...
 
 ## Website
 https://webinspector.sacredwits.com
