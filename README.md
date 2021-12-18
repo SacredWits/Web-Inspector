@@ -16,7 +16,7 @@ https://webinspector.sacredwits.com
 ## Google Play
 https://play.google.com/store/apps/details?id=com.sacredwits.webinspector
 
-## LTS Releases
+## LTS Release
 https://github.com/SacredWits/Web-Inspector/releases/tag/v3.0.0
 
 ## Telegram
